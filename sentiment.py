@@ -46,7 +46,7 @@ for category in movie_reviews.categories():
 
 
 
-word_features5k_f = open("word_features1.pickle", "rb")
+word_features5k_f = open("pickle/word_features1.pickle", "rb")
 word_features = pickle.load(word_features5k_f)
 word_features5k_f.close()
 
@@ -70,28 +70,28 @@ testing_set = featuresets[1400:]
 
 
 
-open_file = open("naivebayes.pickle", "rb")
+open_file = open("pickle/naivebayes.pickle", "rb")
 classifier = pickle.load(open_file)
 open_file.close()
 
 
-open_file = open("MNB_classifier.pickle", "rb")
+open_file = open("pickle/MNB_classifier.pickle", "rb")
 MNB_classifier = pickle.load(open_file)
 open_file.close()
 
 
 
-open_file = open("MNB_classifier.pickle", "rb")
+open_file = open("pickle/MNB_classifier.pickle", "rb")
 BernoulliNB_classifier = pickle.load(open_file)
 open_file.close()
 
 
-open_file = open("LinearSVC_classifier.pickle", "rb")
+open_file = open("pickle/LinearSVC_classifier.pickle", "rb")
 LogisticRegression_classifier = pickle.load(open_file)
 open_file.close()
 
 
-open_file = open("Kfoldclassifier.pickle", "rb")
+open_file = open("pickle/Kfoldclassifier.pickle", "rb")
 LinearSVC_classifier = pickle.load(open_file)
 open_file.close()
 
@@ -129,10 +129,12 @@ def sentiment(text):
 			if classResult == 'pos':
 				p = p + 1
 			print(str(sent) + ","+str(classResult))
-			save_documents = open("tryml.txt","a")
+			save_documents = open("data/output/result.txt","a")
 			save_documents.write(str(sent) + ","+str(classResult))
 			save_documents.close()
-	print("neg:pos  " + str(p)+ ":" + str(n))
+	print("pos:neg  " + str(p)+ ":" + str(n))
+	pos_res = pos/(pos+neg)
+	print ("Total positive reviews:",pos_res)
 	
 text = input("Input the file to be analyzed, place in in the same file as sentiment.py: ")
 sentiment(text)
