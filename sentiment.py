@@ -118,23 +118,23 @@ voted_classifier = VoteClassifier(
 
 def sentiment(text):
 	short_pos = open(text, encoding="utf8").read()
-	n = 0
-	p = 0
+	pos = 0
+	neg = 0
 	for sent in short_pos.split('\n'):
 		if sent != "":
 			words = [word.lower() for word in sent.split(" ")]
 			classResult = voted_classifier.classify(create_word_features(words))
 			if classResult == 'neg':
-				n = n + 1
+				neg = neg + 1
 			if classResult == 'pos':
-				p = p + 1
+				pos = pos + 1
 			print(str(sent) + ","+str(classResult))
 			save_documents = open("data/output/result.txt","a")
-			save_documents.write(str(sent) + ","+str(classResult))
+			save_documents.write(str(sent) + ","+str(classResult) + '\n')
 			save_documents.close()
-	print("pos:neg  " + str(p)+ ":" + str(n))
-	pos_res = pos/(pos+neg)
-	print ("Total positive reviews:",pos_res)
+	print("pos:neg  " + str(pos)+ ":" + str(neg))
+	pos_res = (pos/(pos+neg))*100
+	print ("Total positive reviews:",pos_res,"%")
 	
 text = input("Input the file to be analyzed, place in in the same file as sentiment.py: ")
 sentiment(text)
