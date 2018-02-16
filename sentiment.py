@@ -112,9 +112,26 @@ voted_classifier = VoteClassifier(
   
 #    for w in word_features:
 #        features[w] = w in words
-#    return voted_classifier.classify(features),voted_classifier.confidence(features)
-	
+#    return voted_classifier.classify(features),voted_classifier.confidence(features)	
 #print(sentiment("Best movie ever"))
+
+def sentence1(text):
+	pos = 0
+	neg = 0
+	sentence = text.lower()
+	sentences = sentence.split('.')   # these are actually list of sentences
+	for sent in sentences:
+		if sent != "":
+			words = [word for word in sent.split(" ")]
+			classResult = classifier.classify(create_word_features(words))
+			if classResult == 'neg':
+				neg = neg + 1
+			if classResult == 'pos':
+				pos = pos + 1
+			print(str(sent) + ' --> ' + str(classResult))
+	print("pos:neg  " + str(pos)+ ":" + str(neg))
+	pos_res = (pos/(pos+neg))*100
+	print ("Total positive reviews:",pos_res,"%")
 
 def sentiment(text):
 	short_pos = open(text, encoding="utf8").read()
@@ -134,7 +151,17 @@ def sentiment(text):
 			save_documents.close()
 	print("pos:neg  " + str(pos)+ ":" + str(neg))
 	pos_res = (pos/(pos+neg))*100
-	print ("Total positive reviews:",pos_res,"%")
+	print ("Positivity of the review:",pos_res,"%")
 	
-text = input("Input the file to be analyzed, place in in the same file as sentiment.py: ")
-sentiment(text)
+#options = { 1: sentiment(text), 2:sentence1(text),}
+	
+#text = input("Input the file to be analyzed, place in in the same file as sentiment.py: ")
+text = input("Enter 1 for sentiment analysis of whole file, 2 for a certain text: ")
+#options[num]()
+if text == "1":
+	text = input("Input the file to be analyzed, place in in the same file as sentiment.py: ")
+	sentiment(text)
+else:
+	text = input("Enter the text: ")
+	sentence1(text)
+#sentiment(text)

@@ -133,7 +133,6 @@ for sent in sentences:
         if classResult == 'pos':
             pos = pos + 1
         print(str(sent) + ' --> ' + str(classResult))
-		
 short_pos = open("unlabeled.txt", encoding="utf8").read()
 for sent in short_pos.split('\n'):
     if sent != "":
