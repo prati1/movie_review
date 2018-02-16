@@ -9,5 +9,4 @@ Naive bayes algorithm with 10-fold cross validation was used. Linear SVC and mul
 
 # Project members:
 Pratiksha Shrestha
-
 Depenti Karki
